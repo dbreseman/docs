@@ -19,7 +19,7 @@ jobs:
       # Read content of Markdown files
       - name: Read Markdown files
         run: |
-          files_content=$(cat content/en/docs/*.md)
+          files_content=$(find content/en/docs -name '*.md' -exec cat {} +)
           echo "Content of Markdown files:"
           echo "------------------------------"
           echo "$files_content"
