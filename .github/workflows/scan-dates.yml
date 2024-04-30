@@ -1,6 +1,6 @@
 name: Upcoming Date Alert
 
-# Run action at midnight on the 25th of each month
+# Run action at midnight on the 25th of each month and allow manual runs
 on:
   schedule:
     - cron: '0 0 25 * *'
@@ -10,48 +10,33 @@ jobs:
   check-dates:
     runs-on: ubuntu-latest
     steps:
-      # Multiplatform Regex action to search for dates
-      - name: Multiplatform Regex
-        id: regex
-        uses: tilation/multiplatform-regex@development
+      # Checkout code (version 4)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Perform regex match
+      - name: Perform regex match
+        id: regex-match
+        uses: kaisugi/action-regex-match@v1.0.1
         with:
-          github: ${{ github.repository }}
-          ref: 'main'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          regex: '(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'
-          file: 'content/en/docs/**/*.md'
-          debug: true
+          text: ${{ steps.get-files.outputs.files_content }}  # Text content of all Markdown files
+          regex: '(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'  # Regex pattern to match dates
+          flags: gm  # Use 'g' flag for global matching and 'm' flag for multiline matching
 
-      # Process Regex Matches
-      - name: Process Regex Matches
-        id: process-matches
-        run: |
-          matches="${{ steps.regex.outputs.matches }}"
-          file_content=""
-          while IFS= read -r match; do
-            # Extract filename, line number, and text containing the match
-            # Example format: "filename:line_number:text"
-            filename=$(echo "$match" | cut -d ':' -f 1)
-            line_number=$(echo "$match" | cut -d ':' -f 2)
-            text=$(echo "$match" | cut -d ':' -f 3-)
-            file_content="${file_content}\nFile: ${filename}\nLine: ${line_number}\nText: ${text}\n---"
-          done <<< "$matches"
-          echo "file_content=$file_content"
+      # Create issue with match result
+      - name: Create issue with match result
+        if: ${{ steps.regex-match.outputs.match != '' }}  # Check if there's a match
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const matches = ${{ toJson(steps.regex-match.outputs) }};
+            const body = matches.match;
 
-      # Create GitHub issue based on matches
-      - name: Create GitHub issue
-        if: ${{ steps.regex.outputs.matches != '' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          TITLE: "Upcoming Dates Search: Check if Updates Are Needed"
-          BODY: |
-            Manually confirm if updates are needed in the following docs:
-
-            ${{ steps.process-matches.outputs.file_content }}
-
-        run: |
-          new_issue_url=$(gh issue create \
-            --title "$TITLE" \
-            --body "$BODY" \
-            --repo "$GH_REPO")
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            await octokit.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Upcoming Dates Search: Check if Updates Are Needed",
+              body: body
+            });
