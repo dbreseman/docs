@@ -24,7 +24,8 @@ jobs:
           echo "------------------------------"
           cat content/en/docs/*.md
           echo "------------------------------"
-          echo "::set-env name=FILES_CONTENT::$(cat content/en/docs/*.md)"
+          echo "$(cat content/en/docs/*.md)" > files_content.txt
+          echo "FILES_CONTENT=$(cat files_content.txt)" >> $GITHUB_ENV
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
