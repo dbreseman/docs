@@ -31,7 +31,7 @@ jobs:
         with:
           text: ${{ steps.check-dates.outputs.files_content }}  # Text content of all Markdown files
           regex: '(?i)(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'  # Regex pattern to match dates with case-insensitivity
-          flags: gim  # Use 'g' flag for global matching, 'i' flag for case-insensitivity, and 'm' flag for multiline matching
+          flags: gm  # Use 'g' flag for global matching and 'm' flag for multiline matching
 
       # Create issue with match result
       - name: Create issue with match result
