@@ -15,10 +15,10 @@ jobs:
         id: regex
         uses: tilation/regex-on-repo
         with:
-          github: 'mendix/docs'
-          ref: 'development'
+          github: ${{ github.repository }}
+          ref: 'main'
           token: ${{ secrets.GITHUB_TOKEN }}
-          regex: '\b(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}\b'
+          regex: '(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'
           file: 'content/en/docs/**/*.md'
           debug: true
 
