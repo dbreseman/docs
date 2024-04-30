@@ -29,7 +29,10 @@ jobs:
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
         run: 
-          echo "${{ steps.read-files.run }}"  # Print the output of the previous step
+          echo "Content of Markdown files:"
+          echo "------------------------------"
+          echo "${{ steps.read-files.outputs.files_content }}"
+          echo "------------------------------"
 
       # Step 4: Debug - Print upcoming dates to search for
       - name: Step 4 - Debug - Print upcoming dates to search for
