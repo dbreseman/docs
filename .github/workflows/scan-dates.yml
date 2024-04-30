@@ -26,6 +26,7 @@ jobs:
           echo "$files_content"
           echo "------------------------------"
           echo "::set-output name=files_content::$files_content"
+          echo "Value of files_content after setting: $files_content"  # Debug line
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
