@@ -23,8 +23,7 @@ jobs:
           echo "------------------------------"
           cat content/en/docs/*.md
           echo "------------------------------"
-          echo "$(cat content/en/docs/*.md)" > files_content.txt
-          $FILES_CONTENT=$(cat files_content.txt)
+          export FILES_CONTENT="$(cat content/en/docs/*.md)"
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
