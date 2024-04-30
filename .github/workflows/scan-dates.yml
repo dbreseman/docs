@@ -6,62 +6,30 @@ on:
     - cron: '0 0 25 * *'
   workflow_dispatch:
 
+env:
+  FILES_CONTENT: ""
+
 jobs:
   check-dates:
     runs-on: ubuntu-latest
-    outputs:
-      upcoming_dates: ${{ steps.regex-match.outputs.matches }}
     steps:
       # Step 1: Checkout code (version 4)
       - name: Step 1 - Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Read content of Markdown files
-      - name: Step 2 - Read Markdown files
-        id: read-files
+      # Step 2: Read content of Markdown files and set environment variable
+      - name: Step 2 - Read Markdown files and set environment variable
         run: |
-          files_content=$(find content/en/docs -name '*.md' -exec cat {} +)
           echo "Content of Markdown files:"
           echo "------------------------------"
-          echo "$files_content"
+          cat content/en/docs/*.md
           echo "------------------------------"
-          echo "::set-output name=files_content::$files_content"
-          echo "Value of files_content after setting: $files_content"  # Debug line
+          echo "::set-env name=FILES_CONTENT::$(cat content/en/docs/*.md)"
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
         run: 
-          echo "Received files_content in Step 3:"
+          echo "Content of Markdown files (from environment variable):"
           echo "------------------------------"
-          echo "${{ steps.read-files.outputs.files_content }}"
+          echo "$FILES_CONTENT"
           echo "------------------------------"
-          echo "Content of Markdown files in Step 3:"
-          echo "------------------------------"
-          echo "$files_content"
-          echo "------------------------------"
-
-      # Step 4: Debug - Print upcoming dates to search for
-      - name: Step 4 - Debug - Print upcoming dates to search for
-        run: |
-          echo "Upcoming dates to search for:"
-          echo "------------------------------"
-          echo "Current date: $(date '+%B %d, %Y')"
-          echo "First day of upcoming month: $(date -d 'next month' '+%B 1, %Y')"
-          echo "Last day of upcoming month: $(date -d "$(date -d 'next month' '+%Y-%m-01') +1 month -1 day" '+%B %d, %Y')"
-          echo "------------------------------"
-
-      # Step 5: Perform regex match to find upcoming dates in Markdown files
-      - name: Step 5 - Perform regex match
-        id: regex-match
-        uses: kaisugi/action-regex-match@v1.0.1
-        with:
-          text: ${{ steps.read-files.run }}
-          regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
-          flags: g
-
-      # Step 6: Debug - Print matched dates
-      - name: Step 6 - Debug - Print matched dates
-        if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
-        run: |
-          echo "Matched dates found in Markdown files:"
-          echo "${{ steps.regex-match.outputs.matches }}"
