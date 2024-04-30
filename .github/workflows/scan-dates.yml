@@ -26,6 +26,12 @@ jobs:
         id: scan
         run: node _scripts/scanDates.js
 
+      - name: Write date lines to file
+        run: echo "${{ steps.scan.outputs.scan_output }}" > dateLines.txt
+
+      - name: Set DATE_LINES_FILE environment variable
+        run: echo "::set-env name=DATE_LINES_FILE::dateLines.txt"
+
       - name: Create GitHub issue
         if: steps.scan.outputs.scan_output != ''
         env:
@@ -35,7 +41,7 @@ jobs:
           BODY: |
             Manually confirm if updates are needed in the following docs:
             
-            ${{ join(steps.scan.outputs.scan_output, '\n') }}
+            $(cat dateLines.txt)
         run: |
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
