@@ -73,5 +73,5 @@ const dateLines = scanFilesForDates('content/en/docs');
 const outputFile = 'dateLines.txt';
 fs.writeFileSync(outputFile, dateLines.join('\n'));
 
-// Set environment variable with file path
-console.log(`::set-env name=DATE_LINES_FILE::${outputFile}`);
+// Write file path to standard output
+console.log(outputFile);
