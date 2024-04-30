@@ -19,11 +19,9 @@ jobs:
       # Step 2: Read content of Markdown files and set environment variable
       - name: Step 2 - Read Markdown files and set environment variable
         run: |
-          echo "Content of Markdown files:"
-          echo "------------------------------"
           cat content/en/docs/*.md
-          echo "------------------------------"
-          export FILES_CONTENT="$(cat content/en/docs/*.md)"
+          FILES_CONTENT="$(cat content/en/docs/*.md)"
+          echo "$FILES_CONTENT"
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
