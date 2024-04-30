@@ -10,6 +10,7 @@ jobs:
   check-dates:
     runs-on: ubuntu-latest
     outputs:
+      files_content: ${{ steps.read-files.outputs.files_content }}
       upcoming_dates: ${{ steps.regex-match.outputs.matches }}
     steps:
       # Checkout code (version 4)
@@ -18,18 +19,18 @@ jobs:
 
       # Read content of Markdown files
       - name: Read Markdown files
+        id: read-files
         run: |
           files_content=$(find content/en/docs -name '*.md' -exec cat {} +)
           echo "Content of Markdown files:"
           echo "------------------------------"
-          echo "$files_content"
+          echo "::set-output name=files_content::$files_content"
           echo "------------------------------"
 
-      # Read content of Markdown files
-      - name: Confirm Markdown files
+      # Confirm Markdown files content
+      - name: Confirm Markdown files content
         run: 
           echo "$files_content"
-
 
       # Debug: Print upcoming dates to search for
       - name: Debug - Print upcoming dates to search for
@@ -46,7 +47,7 @@ jobs:
         id: regex-match
         uses: kaisugi/action-regex-match@v1.0.1
         with:
-          text: $files_content
+          text: ${{ steps.read-files.outputs.files_content }}
           regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
           flags: g
 
