@@ -6,10 +6,9 @@ on:
     - cron: '0 0 25 * *'
   workflow_dispatch:
 
-env:
-  FILES_CONTENT: ""
-
 jobs:
+  env:
+    FILES_CONTENT: ""
   check-dates:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +24,7 @@ jobs:
           cat content/en/docs/*.md
           echo "------------------------------"
           echo "$(cat content/en/docs/*.md)" > files_content.txt
-          echo "FILES_CONTENT=$(cat files_content.txt)" >> $GITHUB_ENV
+          FILES_CONTENT=$(cat files_content.txt)
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
