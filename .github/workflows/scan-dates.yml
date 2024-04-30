@@ -19,9 +19,9 @@ jobs:
       # Step 2: Read content of Markdown files and set environment variable
       - name: Step 2 - Read Markdown files and set environment variable
         run: |
-          echo "FILES_CONTENT=$(cat content/en/docs/*.md)" >> $GITHUB_ENV
-          echo "$FILES_CONTENT"
-
+          files_content=$(cat content/en/docs/*.md)
+          echo "FILES_CONTENT=$files_content" >> $GITHUB_ENV
+          
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
         run: 
