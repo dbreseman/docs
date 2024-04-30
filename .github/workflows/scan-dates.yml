@@ -30,7 +30,7 @@ jobs:
         run: echo "${{ steps.scan.outputs.scan_output }}" > dateLines.txt
 
       - name: Set DATE_LINES_FILE environment variable
-        run: echo "::set-env name=DATE_LINES_FILE::dateLines.txt"
+        run: echo "DATE_LINES_FILE=dateLines.txt" >> $GITHUB_ENV
 
       - name: Create GitHub issue
         if: steps.scan.outputs.scan_output != ''
