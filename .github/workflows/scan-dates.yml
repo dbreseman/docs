@@ -35,7 +35,7 @@ jobs:
           BODY: |
             Manually confirm if updates are needed in the following docs:
             
-            ${{ steps.scan.outputs.scan_output }}
+            ${{ join(steps.scan.outputs.scan_output, '\n') }}
         run: |
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
