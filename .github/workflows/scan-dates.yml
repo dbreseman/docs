@@ -9,8 +9,6 @@ on:
 jobs:
   check-dates:
     runs-on: ubuntu-latest
-    env:
-      FILES_CONTENT: ""
     steps:
       # Step 1: Checkout code (version 4)
       - name: Step 1 - Checkout code
@@ -21,11 +19,8 @@ jobs:
         run: |
           files_content=$(cat content/en/docs/*.md)
           echo "FILES_CONTENT=$files_content" >> $GITHUB_ENV
-          
-      # Step 3: Confirm Markdown files content
-      - name: Step 3 - Confirm Markdown files content
-        run: 
-          echo "Content of Markdown files (from environment variable):"
-          echo "------------------------------"
-          echo "$FILES_CONTENT"
-          echo "------------------------------"
+
+      # Step 3: Confirm the environment variable is set
+      - name: Step 3 - Confirm environment variable is set
+        run: echo "FILES_CONTENT=$FILES_CONTENT"
+        
