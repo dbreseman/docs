@@ -22,31 +22,34 @@ jobs:
           file: 'content/en/docs/**/*.md'
           debug: true
 
-      # Extract filename, line number, and text containing detected dates
+      # Process Regex Matches
       - name: Process Regex Matches
+        id: process-matches
         run: |
           matches="${{ steps.regex.outputs.matches }}"
+          file_content=""
           while IFS= read -r match; do
             # Extract filename, line number, and text containing the match
             # Example format: "filename:line_number:text"
             filename=$(echo "$match" | cut -d ':' -f 1)
             line_number=$(echo "$match" | cut -d ':' -f 2)
             text=$(echo "$match" | cut -d ':' -f 3-)
-            echo "File: $filename"
-            echo "Line: $line_number"
-            echo "Text: $text"
-            echo "---"
+            file_content="${file_content}\nFile: ${filename}\nLine: ${line_number}\nText: ${text}\n---"
           done <<< "$matches"
+          echo "file_content=$file_content"
 
       # Create GitHub issue based on matches
       - name: Create GitHub issue
         if: ${{ steps.regex.outputs.matches != '' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
           TITLE: "Upcoming Dates Search: Check if Updates Are Needed"
           BODY: |
             Manually confirm if updates are needed in the following docs:
-            ${{ steps.regex.outputs.matches }}
+
+            ${{ steps.process-matches.outputs.file_content }}
+
         run: |
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
