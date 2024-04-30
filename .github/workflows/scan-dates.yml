@@ -16,7 +16,7 @@ jobs:
 
       - name: Scan files for dates
         id: scan
-        run: _scripts/scanDates.sh
+        run: bash _scripts/scanDates.sh
 
       - name: Create GitHub issue
         if: steps.scan.outputs.scan_output != ''
