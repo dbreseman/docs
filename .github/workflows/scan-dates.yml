@@ -30,9 +30,13 @@ jobs:
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
         run: 
-          echo "Content of Markdown files:"
+          echo "Received files_content in Step 3:"
           echo "------------------------------"
           echo "${{ steps.read-files.outputs.files_content }}"
+          echo "------------------------------"
+          echo "Content of Markdown files in Step 3:"
+          echo "------------------------------"
+          echo "$files_content"
           echo "------------------------------"
 
       # Step 4: Debug - Print upcoming dates to search for
