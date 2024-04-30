@@ -12,19 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: development
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
+          ref: main
 
       - name: Scan files for dates
         id: scan
-        run: node _scripts/scanDates.js
+        run: _scripts/scanDates.sh
 
       - name: Create GitHub issue
         if: steps.scan.outputs.scan_output != ''
