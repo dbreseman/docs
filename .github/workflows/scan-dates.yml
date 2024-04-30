@@ -9,19 +9,29 @@ on:
 jobs:
   check-dates:
     runs-on: ubuntu-latest
+    outputs:
+      files_content: ${{ steps.get-files.outputs.files_content }}
     steps:
       # Checkout code (version 4)
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # Extract content of Markdown files
+      - name: Read Markdown files
+        id: get-files
+        run: |
+          files_content=$(find content/en/docs -name '*.md' -exec cat {} +)
+          echo "$files_content"  # Output the content for the subsequent step to capture
+        shell: bash
 
       # Perform regex match
       - name: Perform regex match
         id: regex-match
         uses: kaisugi/action-regex-match@v1.0.1
         with:
-          text: ${{ steps.get-files.outputs.files_content }}  # Text content of all Markdown files
-          regex: '(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'  # Regex pattern to match dates
-          flags: gm  # Use 'g' flag for global matching and 'm' flag for multiline matching
+          text: ${{ steps.check-dates.outputs.files_content }}  # Text content of all Markdown files
+          regex: '(?i)(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'  # Regex pattern to match dates with case-insensitivity
+          flags: gim  # Use 'g' flag for global matching, 'i' flag for case-insensitivity, and 'm' flag for multiline matching
 
       # Create issue with match result
       - name: Create issue with match result
