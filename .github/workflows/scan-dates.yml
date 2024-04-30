@@ -13,7 +13,7 @@ jobs:
       # Multiplatform Regex action to search for dates
       - name: Multiplatform Regex
         id: regex
-        uses: tilation/multiplatform-regex
+        uses: tilation/multiplatform-regex@development
         with:
           github: ${{ github.repository }}
           ref: 'main'
