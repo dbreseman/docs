@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  env:
-    FILES_CONTENT: ""
   check-dates:
     runs-on: ubuntu-latest
+    env:
+      FILES_CONTENT: ""
     steps:
       # Step 1: Checkout code (version 4)
       - name: Step 1 - Checkout code
@@ -24,7 +24,7 @@ jobs:
           cat content/en/docs/*.md
           echo "------------------------------"
           echo "$(cat content/en/docs/*.md)" > files_content.txt
-          FILES_CONTENT=$(cat files_content.txt)
+          $FILES_CONTENT=$(cat files_content.txt)
 
       # Step 3: Confirm Markdown files content
       - name: Step 3 - Confirm Markdown files content
