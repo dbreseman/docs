@@ -14,20 +14,28 @@ jobs:
         with:
           ref: development
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Scan files for dates
+        id: scan
         run: node _scripts/scanDates.js
 
       - name: Create GitHub issue
+        if: steps.scan.outputs.scan_output != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           TITLE: "Upcoming Dates Search: Check if Updates Are Needed"
           BODY: |
-            if [[ -n "${{ steps.check-dates.outputs.scan_output }}" ]]; then
-              echo "Manually confirm if updates are needed in the following docs:\n\n${{ steps.check-dates.outputs.scan_output }}"
-            else
-              echo "Ran successfully. No upcoming dates found for the next month."
-            fi
+            Manually confirm if updates are needed in the following docs:
+            
+            ${{ steps.scan.outputs.scan_output }}
         run: |
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
