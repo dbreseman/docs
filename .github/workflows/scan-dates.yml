@@ -30,7 +30,7 @@ jobs:
         uses: kaisugi/action-regex-match@v1.0.1
         with:
           text: ${{ steps.check-dates.outputs.files_content }}  # Text content of all Markdown files
-          regex: '(?i)(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}'  # Regex pattern to match dates with case-insensitivity
+          regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'  # Regex pattern to match dates
           flags: gm  # Use 'g' flag for global matching and 'm' flag for multiline matching
 
       # Create issue with match result
