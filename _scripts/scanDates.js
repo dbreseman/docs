@@ -69,11 +69,9 @@ const parseDate = (dateStr) => {
 // Scan files for dates in the specified directory
 const dateLines = scanFilesForDates('content/en/docs');
 
-// Print filename, line number, and text containing dates
-dateLines.forEach((dateLine) => {
-    console.log(dateLine);
-});
+// Write results to a file
+const outputFile = 'dateLines.txt';
+fs.writeFileSync(outputFile, dateLines.join('\n'));
 
-// Set outputs for subsequent steps
-const scanOutput = dateLines.join('\n');
-console.log(`::set-output name=scan_output::${scanOutput}`);
+// Set environment variable with file path
+console.log(`::set-env name=DATE_LINES_FILE::${outputFile}`);
