@@ -24,6 +24,16 @@ jobs:
           echo "$files_content"  # Output the content for the subsequent step to capture
         shell: bash
 
+      # Debug: Print upcoming dates to search for
+      - name: Debug: Print upcoming dates to search for
+        run: |
+          echo "Upcoming dates to search for:"
+          echo "------------------------------"
+          echo "Current date: $(date +%B %d, %Y)"
+          echo "First day of upcoming month: $(date -d 'next month' +%B 1, %Y)"
+          echo "Last day of upcoming month: $(date -d 'next month -1 day' +%B %d, %Y)"
+          echo "------------------------------"
+
       # Perform regex match
       - name: Perform regex match
         id: regex-match
@@ -31,8 +41,7 @@ jobs:
         with:
           text: ${{ steps.check-dates.outputs.files_content }}  # Text content of all Markdown files
           regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'  # Regex pattern to match dates
-          flags: gm  # Use 'g' flag for global matching and 'm' flag for multiline matching
-
+          
       # Create issue with match result
       - name: Create issue with match result
         if: ${{ steps.regex-match.outputs.match != '' }}  # Check if there's a match
