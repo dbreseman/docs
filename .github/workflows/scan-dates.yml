@@ -25,14 +25,22 @@ jobs:
           echo "$files_content"  # Output the content for the subsequent step to capture
         shell: bash
 
+      # Debug: Print content of Markdown files
+      - name: Debug - Print content of Markdown files
+        run: |
+          echo "Content of Markdown files:"
+          echo "------------------------------"
+          echo "${{ steps.get-files.outputs.files_content }}"
+          echo "------------------------------"
+
       # Debug: Print upcoming dates to search for
-      - name: Debug Print upcoming dates to search for
+      - name: Debug - Print upcoming dates to search for
         run: |
           echo "Upcoming dates to search for:"
           echo "------------------------------"
           echo "Current date: $(date '+%B %d, %Y')"
           echo "First day of upcoming month: $(date -d 'next month' '+%B 1, %Y')"
-          echo "Last day of upcoming month: $(date -d 'next month -1 day' '+%B %d, %Y')"
+          echo "Last day of upcoming month: $(date -d "$(cal | awk 'NF==7{print $NF}') $(date '+%B %Y')" '+%B %d, %Y')"
           echo "------------------------------"
 
       # Perform regex match to find upcoming dates in Markdown files
@@ -45,7 +53,7 @@ jobs:
           flags: g
 
       # Debug: Print matched dates
-      - name: Debug Print matched dates
+      - name: Debug - Print matched dates
         if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
         run: |
           echo "Matched dates found in Markdown files:"
