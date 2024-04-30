@@ -12,12 +12,12 @@ jobs:
     outputs:
       upcoming_dates: ${{ steps.regex-match.outputs.matches }}
     steps:
-      # Checkout code (version 4)
-      - name: Checkout code
+      # Step 1: Checkout code (version 4)
+      - name: Step 1 - Checkout code
         uses: actions/checkout@v4
 
-      # Read content of Markdown files
-      - name: Read Markdown files
+      # Step 2: Read content of Markdown files
+      - name: Step 2 - Read Markdown files
         id: read-files
         run: |
           files_content=$(find content/en/docs -name '*.md' -exec cat {} +)
@@ -26,13 +26,13 @@ jobs:
           echo "$files_content"
           echo "------------------------------"
 
-      # Confirm Markdown files content
-      - name: Confirm Markdown files content
+      # Step 3: Confirm Markdown files content
+      - name: Step 3 - Confirm Markdown files content
         run: 
           echo "${{ steps.read-files.run }}"  # Print the output of the previous step
 
-      # Debug: Print upcoming dates to search for
-      - name: Debug - Print upcoming dates to search for
+      # Step 4: Debug - Print upcoming dates to search for
+      - name: Step 4 - Debug - Print upcoming dates to search for
         run: |
           echo "Upcoming dates to search for:"
           echo "------------------------------"
@@ -41,8 +41,8 @@ jobs:
           echo "Last day of upcoming month: $(date -d "$(date -d 'next month' '+%Y-%m-01') +1 month -1 day" '+%B %d, %Y')"
           echo "------------------------------"
 
-      # Perform regex match to find upcoming dates in Markdown files
-      - name: Perform regex match
+      # Step 5: Perform regex match to find upcoming dates in Markdown files
+      - name: Step 5 - Perform regex match
         id: regex-match
         uses: kaisugi/action-regex-match@v1.0.1
         with:
@@ -50,8 +50,8 @@ jobs:
           regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
           flags: g
 
-      # Debug: Print matched dates
-      - name: Debug - Print matched dates
+      # Step 6: Debug - Print matched dates
+      - name: Step 6 - Debug - Print matched dates
         if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
         run: |
           echo "Matched dates found in Markdown files:"
