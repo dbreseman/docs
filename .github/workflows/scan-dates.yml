@@ -1,5 +1,6 @@
 name: Upcoming Date Alert
 
+# Run action at midnight on the 25th of each month
 on:
   schedule:
     - cron: '0 0 25 * *'
@@ -9,25 +10,43 @@ jobs:
   check-dates:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # Multiplatform Regex action to search for dates
+      - name: Multiplatform Regex
+        id: regex
+        uses: tilation/regex-on-repo
         with:
-          ref: main
+          github: 'mendix/docs'
+          ref: 'development'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          regex: '\b(January|February|March|April|May|June|July|August|September|October|November|December).{0,6} [0-9]{4}\b'
+          file: 'content/en/docs/**/*.md'
+          debug: true
 
-      - name: Scan files for dates
-        id: scan
-        run: bash _scripts/scanDates.sh
+      # Extract filename, line number, and text containing detected dates
+      - name: Process Regex Matches
+        run: |
+          matches="${{ steps.regex.outputs.matches }}"
+          while IFS= read -r match; do
+            # Extract filename, line number, and text containing the match
+            # Example format: "filename:line_number:text"
+            filename=$(echo "$match" | cut -d ':' -f 1)
+            line_number=$(echo "$match" | cut -d ':' -f 2)
+            text=$(echo "$match" | cut -d ':' -f 3-)
+            echo "File: $filename"
+            echo "Line: $line_number"
+            echo "Text: $text"
+            echo "---"
+          done <<< "$matches"
 
+      # Create GitHub issue based on matches
       - name: Create GitHub issue
-        if: steps.scan.outputs.scan_output != ''
+        if: ${{ steps.regex.outputs.matches != '' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
           TITLE: "Upcoming Dates Search: Check if Updates Are Needed"
           BODY: |
             Manually confirm if updates are needed in the following docs:
-            
-            ${{ join(steps.scan.outputs.scan_output, '\n') }}
+            ${{ steps.regex.outputs.matches }}
         run: |
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
