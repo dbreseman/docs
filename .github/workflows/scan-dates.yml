@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       files_content: ${{ steps.get-files.outputs.files_content }}
+      upcoming_dates: ${{ steps.regex-match.outputs.matches }}
     steps:
       # Checkout code (version 4)
       - name: Checkout code
@@ -29,33 +30,23 @@ jobs:
         run: |
           echo "Upcoming dates to search for:"
           echo "------------------------------"
-          echo "Current date: $(date +%B %d, %Y)"
-          echo "First day of upcoming month: $(date -d 'next month' +%B 1, %Y)"
-          echo "Last day of upcoming month: $(date -d 'next month -1 day' +%B %d, %Y)"
+          echo "Current date: $(date '+%B %d, %Y')"
+          echo "First day of upcoming month: $(date -d 'next month' '+%B 1, %Y')"
+          echo "Last day of upcoming month: $(date -d 'next month -1 day' '+%B %d, %Y')"
           echo "------------------------------"
 
-      # Perform regex match
+      # Perform regex match to find upcoming dates in Markdown files
       - name: Perform regex match
         id: regex-match
         uses: kaisugi/action-regex-match@v1.0.1
         with:
-          text: ${{ steps.check-dates.outputs.files_content }}  # Text content of all Markdown files
-          regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'  # Regex pattern to match dates
+          text: ${{ steps.get-files.outputs.files_content }}
+          regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
+          flags: g
 
-      # Create issue with match result
-      - name: Create issue with match result
-        if: ${{ steps.regex-match.outputs.match != '' }}  # Check if there's a match
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const matches = ${{ toJson(steps.regex-match.outputs) }};
-            const body = matches.match;
-
-            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-            await octokit.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: "Upcoming Dates Search: Check if Updates Are Needed",
-              body: body
-            });
+      # Debug: Print matched dates
+      - name: Debug: Print matched dates
+        if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
+        run: |
+          echo "Matched dates found in Markdown files:"
+          echo "${{ steps.regex-match.outputs.matches }}"
