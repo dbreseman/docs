@@ -45,7 +45,7 @@ jobs:
           flags: g
 
       # Debug: Print matched dates
-      - name: Debug: Print matched dates
+      - name: Debug Print matched dates
         if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
         run: |
           echo "Matched dates found in Markdown files:"
