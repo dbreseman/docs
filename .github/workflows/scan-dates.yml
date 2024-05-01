@@ -23,3 +23,29 @@ jobs:
       - name: Step 3 - Confirm file is created and contains content
         run: |
           cat files_content.txt
+
+      # Step 4: Debug - Print upcoming dates to search for
+      - name: Step 4 - Debug - Print upcoming dates to search for
+        run: |
+          echo "Upcoming dates to search for:"
+          echo "------------------------------"
+          echo "Current date: $(date '+%B %d, %Y')"
+          echo "First day of upcoming month: $(date -d 'next month' '+%B 1, %Y')"
+          echo "Last day of upcoming month: $(date -d "$(date -d 'next month' '+%Y-%m-01') +1 month -1 day" '+%B %d, %Y')"
+          echo "------------------------------"
+
+      # Step 5: Perform regex match to find upcoming dates in Markdown files
+      - name: Step 5 - Perform regex match
+        id: regex-match
+        uses: kaisugi/action-regex-match@v1.0.1
+        with:
+          text: ${{ steps.confirm-file-creation.outputs.files_content }}
+          regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
+          flags: gm
+
+      # Step 6: Debug - Print matched dates
+      - name: Step 6 - Debug - Print matched dates
+        if: ${{ steps.regex-match.outputs.matches != '' }}  # Check if there are matches
+        run: |
+          echo "Matched dates found in Markdown files:"
+          echo "${{ steps.regex-match.outputs.matches }}"
