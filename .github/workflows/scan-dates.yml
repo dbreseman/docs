@@ -14,12 +14,12 @@ jobs:
       - name: Step 1 - Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Read content of Markdown files and set environment variable
-      - name: Step 2 - Read Markdown files and set environment variable
+      # Step 2: Read content of Markdown files and write to a file
+      - name: Step 2 - Read Markdown files and write to a file
         run: |
-          echo "FILES_CONTENT=$(find content/en/docs -name '*.md' -exec cat {} +)" >> $GITHUB_ENV
-          echo "$FILES_CONTENT"
+          cat content/en/docs/*.md > files_content.txt
 
-      # Step 3: Confirm the environment variable is set
-      - name: Step 3 - Confirm environment variable is set
-        run: echo "$FILES_CONTENT"
+      # Step 3: Confirm the file is created and contains the content
+      - name: Step 3 - Confirm file is created and contains content
+        run: |
+          cat files_content.txt
