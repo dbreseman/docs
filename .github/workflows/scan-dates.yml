@@ -17,7 +17,7 @@ jobs:
       # Step 2: Read content of Markdown files and write to a file
       - name: Step 2 - Read Markdown files and write to a file
         run: |
-          cat content/en/docs/*.md > files_content.txt
+        find content/en/docs -name '*.md' -exec cat {} + > files_content.txt
 
       # Step 3: Confirm the file is created and contains the content
       - name: Step 3 - Confirm file is created and contains content
