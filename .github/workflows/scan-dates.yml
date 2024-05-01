@@ -17,7 +17,7 @@ jobs:
       # Step 2: Read content of Markdown files and write to a file
       - name: Step 2 - Read Markdown files and write to a file
         run: |
-        find content/en/docs -name '*.md' -exec cat {} + > files_content.txt
+          find content/en/docs -name '*.md' -exec cat {} + > files_content.txt
 
       # Step 3: Confirm the file is created and contains the content
       - name: Step 3 - Confirm file is created and contains content
@@ -39,7 +39,7 @@ jobs:
         id: regex-match
         uses: kaisugi/action-regex-match@v1.0.1
         with:
-          text: ${{ steps.confirm-file-creation.outputs.files_content }}
+          text: ${{ runner.workspace }}/files_content.txt
           regex: '(January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{1,2},\s+[0-9]{4}'
           flags: gm
 
