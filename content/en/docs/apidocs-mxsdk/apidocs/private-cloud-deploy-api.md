@@ -2,7 +2,6 @@
 title: "Mendix for Private Cloud Deploy API"
 url: /apidocs-mxsdk/apidocs/private-cloud-deploy-api/
 type: swagger
-category: "API Documentation"
 description: "This API allows you to manage application environments deployed to your private cloud using the Mendix Operator."
 weight: 72
 ---
@@ -52,23 +51,25 @@ Store the `{GENERATED_PAT}` value in a safe location, so you can use it to autho
 
 #### 2.1.2 Scopes explanation
 
-| Operation                   | Scopes                                       |
-|-----------------------------|----------------------------------------------|
-| Get namespace manifest      | `mx:deployment:read` or `mx:deployment:write`|
-| Get namespaces manifest     | `mx:deployment:read` or `mx:deployment:write`|
-| Get cluster manifest        | `mx:deployment:read` or `mx:deployment:write`|
-| Get clusters manifest       | `mx:deployment:read` or `mx:deployment:write`|
-| Create cluster              | `mx:deployment:write`                        |
-| Update cluster              | `mx:deployment:write`                        |
-| Delete cluster              | `mx:deployment:write`                        |
-| Create namespace            | `mx:deployment:write`                        |
-| Update namespace            | `mx:deployment:write`                        |
-| Delete namespace            | `mx:deployment:write`                        |
-| Get environment manifest    | `mx:deployment:read` or `mx:deployment:write`|
-| Create environment          | `mx:deployment:write`                        |
-| Update environment          | `mx:deployment:write`                        |
-| Delete environment          | `mx:deployment:write`                        |
-| Get Job                     | `mx:deployment:read` or `mx:deployment:write`|
+| Operation                   | Scopes                                       	|
+|-----------------------------|-------------------------------------------------|
+| Get namespace manifest      | `mx:deployment:read`  or `mx:deployment:write`	|
+| Get namespaces manifest     | `mx:deployment:read`  or `mx:deployment:write`	|
+| Get cluster manifest        | `mx:deployment:read`  or `mx:deployment:write`	|
+| Get clusters manifest       | `mx:deployment:read`  or `mx:deployment:write`	|
+| Create cluster              | `mx:deployment:write`                        	|
+| Update cluster              | `mx:deployment:write`                        	|
+| Delete cluster              | `mx:deployment:write`                        	|
+| Create namespace            | `mx:deployment:write`                        	|
+| Update namespace            | `mx:deployment:write`                        	|
+| Delete namespace            | `mx:deployment:write`                        	|
+| Get environment manifest    | `mx:deployment:read`  or `mx:deployment:write`	|
+| Create environment          | `mx:deployment:write`                        	|
+| Update environment          | `mx:deployment:write`                           |
+| Delete environment          | `mx:deployment:write`                           |
+| Get Apps manifest           | `mx:deployment:write` and `mx:app:metadata:read`|                        
+| Get App manifest.           | `mx:deployment:write` and `mx:app:metadata:read`|                          	
+| Get Job                     | `mx:deployment:read`  and `mx:deployment:write`	|
 
 #### 2.1.3 Using the PAT
 
