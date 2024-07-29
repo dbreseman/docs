@@ -8,7 +8,6 @@ description_list: true
 cascade:
   - content_type: "Deployment"
   - mendix_version: 10
-#To update these screenshots, you can log in with credentials detailed in How to Update Screenshots Using Team Apps.
 ---
 
 ## 1 Introduction
