@@ -10,4 +10,4 @@ cascade:
     - mendix_version: 10
 ---
 
-The *APIs and SDK* are divided into the following categories:
+Now, the *APIs and SDK* are divided into the following categories:

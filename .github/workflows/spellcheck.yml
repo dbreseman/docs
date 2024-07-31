@@ -1,4 +1,5 @@
 name: Spellcheck Action
+
 on: push
 
 jobs:
@@ -10,12 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Step 2: Get the list of changed .md files
-    - name: Get changed m=Markdown files
+    # Step 2: Get the list of changed Markdown files in docs/content/en/docs/
+    - name: Get changed Markdown files
       id: get_changed_md_files
       run: |
         git fetch origin
-        CHANGED_MD_FILES=$(git diff --name-only HEAD^ HEAD | grep '\.md$' || true)
+        CHANGED_MD_FILES=$(git diff --name-only HEAD^ HEAD | grep '^docs/content/en/docs/.*\.md$' || true)
         echo "CHANGED_MD_FILES=${CHANGED_MD_FILES}" >> $GITHUB_ENV
 
     # Step 3: Run spellcheck on changed Markdown files
