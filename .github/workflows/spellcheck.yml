@@ -6,7 +6,21 @@ jobs:
     name: Spellcheck
     runs-on: ubuntu-latest
     steps:
-    # The checkout step
-    - uses: actions/checkout@v4
-    - uses: rojopolis/spellcheck-github-actions@v0
-      name: Spellcheck
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Step 2: Get the list of changed .md files
+    - name: Get changed m=Markdown files
+      id: get_changed_md_files
+      run: |
+        git fetch origin
+        CHANGED_MD_FILES=$(git diff --name-only HEAD^ HEAD | grep '\.md$' || true)
+        echo "CHANGED_MD_FILES=${CHANGED_MD_FILES}" >> $GITHUB_ENV
+
+    # Step 3: Run spellcheck on changed Markdown files
+    - name: Spellcheck
+      if: env.CHANGED_MD_FILES != ''
+      uses: rojopolis/spellcheck-github-actions@v0
+      with:
+        files: ${{ env.CHANGED_MD_FILES }}
