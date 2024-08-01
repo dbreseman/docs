@@ -8,7 +8,6 @@ weight: 6
 
 These release notes cover changes to the Extensibility API.
 
-
 ## Version 10.6.0
 
 * The Extensibility API is released for beta usage. 
