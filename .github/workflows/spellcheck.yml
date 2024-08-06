@@ -1,5 +1,4 @@
 name: Spellcheck Action
-
 on: push
 
 jobs:
@@ -7,36 +6,7 @@ jobs:
     name: Spellcheck
     runs-on: ubuntu-latest
     steps:
-    # Step 1: Checkout the repository with full history
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Ensures full clone
-
-    # Step 2: Determine the base SHA for comparison
-    - name: Determine base SHA
-      id: determine_base_sha
-      run: |
-        BASE_SHA=$(git rev-parse HEAD^ || echo $(git hash-object -t tree /dev/null))
-        echo "BASE_SHA=${BASE_SHA}" >> $GITHUB_ENV
-
-    # Step 3: Debug - Show base SHA and current HEAD
-    - name: Show base SHA and current HEAD
-      run: |
-        echo "Base SHA: ${BASE_SHA}"
-        echo "Current HEAD: $(git rev-parse HEAD)"
-
-    # Step 4: Get the list of changed Markdown files in docs/content/en/docs/
-    - name: Get changed Markdown files
-      id: get_changed_md_files
-      run: |
-        CHANGED_MD_FILES=$(git diff --name-only ${BASE_SHA} HEAD | grep '^docs/content/en/docs/.*\.md$' || true)
-        echo "CHANGED_MD_FILES=${CHANGED_MD_FILES}"
-        echo "CHANGED_MD_FILES=${CHANGED_MD_FILES}" >> $GITHUB_ENV
-
-    # Step 5: Run spellcheck on changed Markdown files
-    - name: Spellcheck
-      if: env.CHANGED_MD_FILES != ''
-      uses: rojopolis/spellcheck-github-actions@v0
-      with:
-        files: ${{ env.CHANGED_MD_FILES }}
+    # The checkout step
+    - uses: actions/checkout@v4
+    - uses: rojopolis/spellcheck-github-actions@v0
+      name: Spellcheck
