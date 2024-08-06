@@ -116,7 +116,7 @@ To build a simple microflow that uses the ChatCompletions operation to send a si
 
 ### 3.5 Invoking Specific Models by Using the InvokeModel Operation
 
-Depending on your needs, you can just reuse the operations inside of the **AmazonBedrockConnector (GenAICommons)** section. You can also find guidance on how to implement the required structures in the [GenAICommons](https://docs.mendix.com/appstore/modules/genai/) documentation. To help users understand what needs to be done to invoke specific models using the [Invoke Model](#invoke-model) instead, the example microflow **EXAMPLE_TitanImageGeneratorG1** within the connector and the [Bedrock Showcase app](https://marketplace.mendix.com/link/component/223535) **invokeModel** topic and showcase can serve as an inspiration. 
+Depending on your needs, you can just reuse the operations inside of the **AmazonBedrockConnector (GenAICommons)** section. You can also find guidance on how to implement the required structures in the [GenAICommons](/appstore/modules/genai/) documentation. To help users understand what needs to be done to invoke specific models using the [Invoke Model](#invoke-model) instead, the example microflow **EXAMPLE_TitanImageGeneratorG1** within the connector and the [Bedrock Showcase app](https://marketplace.mendix.com/link/component/223535) **invokeModel** topic and showcase can serve as an inspiration. 
 
 Most text models can be used with the **ChatCompletions** operation. For an overview of the supported models and capabilities, see [Supported models and model features](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html#conversation-inference-supported-models-features).
 
@@ -181,7 +181,7 @@ The domain model is a data model that describes the information in your applicat
 
 ##### 4.1.1.1 AmazonBedrockConnection {#amazon-bedrock-connection}
 
-This entity holds the necessary information to perform Bedrock operations such as the `invokeModel` action. It is a specialization of the `Connection` entity of the [GenAICommons](https://docs.mendix.com/appstore/modules/genai/).
+This entity holds the necessary information to perform Bedrock operations such as the `invokeModel` action. It is a specialization of the `Connection` entity of the [GenAICommons](/appstore/modules/genai/).
 
 | Attribute | Description |
 | --- | --- |
@@ -984,7 +984,7 @@ Activities define the actions that are executed in a microflow or a nanoflow. Fo
 
 ##### 4.2.1.1 ChatCompletions (Without History) {#chat-completions-without-history}
 
-The `ChatCompletions (without history)` activity can be used for any conversations with a variety of supported LLM's. There is no option to keep the concersation history in mind. This operation corresponds to the **ChatCompletions_WithoutHistory_AmazonBedrock** microflow.
+The `ChatCompletions (without history)` activity can be used for any conversations with a variety of supported LLMs. There is no option to keep the conversation history in mind. This operation corresponds to the **ChatCompletions_WithoutHistory_AmazonBedrock** microflow.
 
 This operation leverages the Amazon Bedrock Converse API. For a full overview of supported models and model capabilities, please refer to the [AWS Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html#conversation-inference-supported-models-features).
 
@@ -998,7 +998,7 @@ The input and output for this service are shown in the table below:
 
 ##### 4.2.1.2 ChatCompletions (With History) {#chat-completions-with-history}
 
-The `ChatCompletions (with history)` activity can be used for any conversations with a variety of supported LLM's. It is possible for it to keep the conversation history in mind. This operation corresponds to the **ChatCompletions_WithHistory_AmazonBedrock** microflow.
+The `ChatCompletions (with history)` activity can be used for any conversations with a variety of supported LLMs. It is possible for it to keep the conversation history in mind. This operation corresponds to the **ChatCompletions_WithHistory_AmazonBedrock** microflow.
 
 This operation leverages the Amazon Bedrock Converse API. For a full overview of supported models and model capabilities, please refer to the [AWS Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html#conversation-inference-supported-models-features).
 
