@@ -196,6 +196,7 @@ This is the response entity of the `GetQueueAttributes` action.
 #### 4.1.20 GetQueueAttributesQueueUsage {#getqueueattributesqueueusage}
 
 This is a specialization of the `AbstractQueueAttributesUsage` entity.
+
 | Attribute | Description |
 | --- | --- |
 |`ApproximateNumberOfMessages`| Approximate number of messages available for retrieval from the queue.|

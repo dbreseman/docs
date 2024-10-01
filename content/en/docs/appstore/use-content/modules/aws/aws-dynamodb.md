@@ -507,6 +507,7 @@ An enumeration is a predefined list of values that can be used as an attribute t
 #### 4.2.5 `ENUM_ComparisonOperator`
 
 For more information on using comparison operators, please visit [Amazon DynamoDB docs](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Condition.html).
+
 | Name | Caption | Description |
 | --- | --- | --- |
 |`BEGINS_WITH` | **BEGINS_WITH** | The enumeration element that evaluates items for a prefix |
