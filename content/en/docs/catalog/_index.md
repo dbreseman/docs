@@ -14,9 +14,9 @@ aliases:
     - /data-hub/data-hub-catalog/
 ---
 
-## Introduction
+## Introduction test
 
-The [Catalog](https://catalog.mendix.com) is a development tool provided in Mendix Cloud. 
+The [Catalog](https://catalog.mendix.com) is a development tool provided in Mendix Cloud.  
 
 {{< figure src="/attachments/catalog/catalog-home.png" alt="Catalog home page" class="no-border" >}}
 
