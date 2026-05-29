@@ -28,7 +28,7 @@ Before you begin, make sure you have the following:
 
 Follow these steps to access the Partner Finder:
 
-1. Log in to your Mendix account at https://partners.home.mendix.com.
+1. Log in to your Mendix account at https://partners.home.mendix.com.chec
 2. Click on your picture in the top right corner. etst
 3. Select **Partner Admin** from the dropdown menu.
 
