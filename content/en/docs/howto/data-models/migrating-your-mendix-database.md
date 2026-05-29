@@ -14,7 +14,7 @@ After completing this how-to, you will know how to do the following:
 * Migrate a non-PostgreSQL database to a PostgreSQL database
 * Export a PostgreSQL database
 * Upload an exported PostgreSQL database to Mendix Cloud
-* Export a Mendix Cloud database
+* Export— a Mendix Cloud database
 * Import into an on-premise PostgreSQL database
 * Migrate a PostgreSQL database to a non-PostgreSQL database, including migrating a PostgreSQL database to SAP HANA
 
@@ -181,7 +181,7 @@ If you have a Mendix application running on SAP BTP with PostgreSQL as the datab
 
     {{< figure src="/attachments/howto/data-models/migrating-your-mendix-database/sap-postgres-config.png" class="no-border" >}}
 
-4. Create an environment using the SAP HANA database service using Mendix Portal.
+4. Create an environment using the SAP HANA database service using Mendix Portal.check
 5. Deploy the MDA, but do not start the application.
 6. Sign in to the SAP BTP, Cloud Foundry environment (containing the SAP HANA service) using the Cloud Foundry command line.
 7. Set the following runtime properties in the SAP HANA environment using the command line. Use the values from the PostgreSQL instance values you noted above.
@@ -203,11 +203,11 @@ If you have a Mendix application running on SAP BTP with PostgreSQL as the datab
 
 1. Sign in to the SAP BTP Cockpit.
 2. Navigate to the subaccount containing the application from which you want to migrate the database.
-3. In the service bindings of the application, find the postgreSQL DB or the shared postgreSQL DB.
+3. In the service bindings of the application, find the postgreSQL DB or the shared postgreSQL DB. abd
 4. Click **Show sensitive data**.
 5. Write down the values of the following properties in the `postgresql` service:
     * `dbname` – `{dbname}`
-    * `hostname` – `{hostname}`
+    * `hostname` – `{hostname}`sdf
     * `password` – `{password}`
     * `port` – `{port}`
     * `username` – `{username}`
