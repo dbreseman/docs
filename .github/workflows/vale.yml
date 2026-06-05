@@ -22,7 +22,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get changed files
         id: changed-files
@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Vale
         if: steps.changed-files.outputs.files != ''
-        uses: vale-cli/vale-action@v2
+        uses: vale-cli/vale-action@v2.1.2
         with:
           files: ${{ steps.changed-files.outputs.files }}
           separator: ","
