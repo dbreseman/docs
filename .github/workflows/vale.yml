@@ -16,6 +16,8 @@ jobs:
     # Only run on Mendix repo, not forks, and not on draft PRs
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     # Cancel old runs when new commits are pushed
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -34,7 +36,7 @@ jobs:
 
       - name: Run Vale
         if: steps.changed-files.outputs.files != ''
-        uses: vale-cli/vale-action@ff9447943c1cad0f45649b630e29112511f80e5a
+        uses: vale-cli/vale-action@v2
         with:
           files: ${{ steps.changed-files.outputs.files }}
           separator: ","
