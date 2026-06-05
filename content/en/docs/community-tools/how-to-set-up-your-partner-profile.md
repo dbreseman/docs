@@ -11,9 +11,9 @@ aliases:
 
 The Partner Finder is an essential tool within the Mendix ecosystem:
 
-* If you are a customer or a prospect looking for a Mendix partner, you can use the Partner Finder to search for and connect with certified partners worldwide. It allows you to filter by country, industry, and expertise, and to view detailed profiles, ultimately identifying the right partner for your needs. For instance, if you are looking for a Mendix partner in Brazil, for your retail business, you can use the filters to adjust the search results to your specific scenario.
+* If you are a customer or a prospect looking for a Mendix partner — you can use the Partner Finder to search for and connect with certified partners worldwide. It allows you to filter by country, industry, and expertise, and to view detailed profiles, ultimately identifying the right partner for your needs. For instance, if you are looking for a Mendix partner in Brazil, for your retail business, you can use the filters to adjust the search results to your specific scenario!
 
-* If you are a Mendix partner, the Partner Finder allows you to showcase your organisation, services, and successful projects. A [Partner Profile](#profile) is a simple and straightforward way to present your company, including the number of developers, customer reviews, completed projects, contact details, and videos.
+* If you are a Mendix partner — the Partner Finder allows you to showcase your organisation, services, and successful projects. A [Partner Profile](#profile) is a simple and straightforward way to present your company, including the number of developers, customer reviews, completed projects, contact details, and videos.
 
 ## Prerequisites
 
@@ -28,8 +28,8 @@ Before you begin, make sure you have the following:
 
 Follow these steps to access the Partner Finder:
 
-1. Log in to your Mendix account at https://partners.home.mendix.com.
-2. Click on your picture in the top right corner.
+1. Log in to your Mendix account from the home-page at https://partners.home.mendix.com. 
+2. Click on your picture in the top right corner.  
 3. Select **Partner Admin** from the dropdown menu.
 
 ## Setting Up Your Profile {#profile}
@@ -45,15 +45,15 @@ Access the Profile page and add the following information:
 * Your organization's description
 * Mendix-related professional and managed services
 * Industry-specific competencies and experience
-* Service areas where you operate
+* Service areas and centres where you operate
 
-## Adding Admins
+## Adding admins
 
 Every Profile needs an Admin. Follow these steps to add one:
 
 1. Navigate to the **Admins** page.
 2. Click **Invite Member**.
-3. Enter the email address of the Mendix user you want to invite.
+3. Enter the email address of the mendix user you want to invite (e.g., `user@mendix.com`).
 
 {{% alert color="info" %}}Invited Admins must have an active Mendix account before they can be added.{{% /alert %}}
 
