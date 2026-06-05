@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Vale
         if: steps.changed-files.outputs.files != ''
-        uses: vale-cli/vale-action@v2.1.2
+        uses: vale-cli/vale-action@ff9447943c1cad0f45649b630e29112511f80e5a
         with:
           files: ${{ steps.changed-files.outputs.files }}
           separator: ","
