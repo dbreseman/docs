@@ -47,7 +47,7 @@ Access the Profile page and add the following information:
 * Industry-specific competencies and experience
 * Service areas and centres where you operate
 
-## Adding Admins
+## Adding admins
 
 Every Profile needs an Admin. Follow these steps to add one:
 
