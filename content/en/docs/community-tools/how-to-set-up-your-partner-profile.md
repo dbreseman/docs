@@ -11,7 +11,7 @@ aliases:
 
 The Partner Finder is an essential tool within the Mendix ecosystem:
 
-* If you are a customer or a prospect looking for a Mendix partner — you can use the Partner Finder to search for and connect with certified partners worldwide. It allows you to filter by country, industry, and expertise, and to view detailed profiles, ultimately identifying the right partner for your needs. For instance, if you are looking for a Mendix partner in Brazil, for your retail business, you can use the filters to adjust the search results to your specific scenario.  
+* If you are a customer or a prospect looking for a Mendix partner — you can use the Partner Finder to search for and connect with certified partners worldwide. It allows you to filter by country, industry, and expertise, and to view detailed profiles, ultimately identifying the right partner for your needs. For instance, if you are looking for a Mendix partner in Brazil, for your retail business, you can use the filters to adjust the search results to your specific scenario!
 
 * If you are a Mendix partner — the Partner Finder allows you to showcase your organisation, services, and successful projects. A [Partner Profile](#profile) is a simple and straightforward way to present your company, including the number of developers, customer reviews, completed projects, contact details, and videos.
 
